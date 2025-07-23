@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インタラクティブなJavaScript入門</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome (アイコン用) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="header_inner">
+            <h1 class="title-logo">インタラクティブJS入門</h1>
+            <nav id="gnav">
+                <ul class="gnav-list">
+                    <li><a href="#about-js">JSとは</a></li>
+                    <li><a href="#dom-tutorial">実践①</a></li>
+                    <li><a href="#interactive-style-demo">実践②</a></li>
+                    <li><a href="#todo-list-demo">実践③</a></li>
+                    <li><a href="#api-fetch-demo">実践④</a></li>
+                    <li><a href="#canvas-demo">実践⑤</a></li>
+                    <li><a href="#validation-demo">実践⑥</a></li>
+                    <li><a href="#quiz-demo">実践⑦</a></li>
+                    <li><a href="#timer-demo">実践⑧</a></li>
+                    <li><a href="#modal-demo">実践⑨</a></li>
+                    <li><a href="#char-counter-demo">実践⑩</a></li>
+                    <li><a href="#image-gallery-demo">実践⑪</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="メニューを開く" aria-controls="gnav" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="about-js">
+            <h2><i class="fa-brands fa-js-square"></i> JavaScriptとは？</h2>
+            <div class="content-wrapper">
+                <img src="./images/icons8-javascript.svg" alt="JavaScriptのイメージ画像" class="content-image">
+                <div class="text-content">
+                    <p>JavaScriptは、ウェブページにインタラクティブな機能を追加するためのプログラミング言語です。HTMLが骨格、CSSがデザインなら、JavaScriptはページの「動き」や「機能」を担当します。</p>
+                    <p>この言語でできることの例：</p>
+                    <ul>
+                        <li><i class="fa-solid fa-hand-pointer icon-li"></i> ボタンクリックでポップアップ表示</li>
+                        <li><i class="fa-solid fa-check-to-slot icon-li"></i> フォーム入力内容のチェック</li>
+                        <li><i class="fa-solid fa-images icon-li"></i> 画像スライドショーの自動切り替え</li>
+                        <li><i class="fa-solid fa-server icon-li"></i> サーバーと通信して最新情報を表示</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="dom-tutorial">
+            <h2><i class="fa-solid fa-sitemap"></i> 【実践①】DOMを操作してテキストを変える</h2>
+            <div class="content-wrapper reverse">
+                <div class="text-content">
+                    <p><strong>DOM（Document Object Model）</strong>とは、HTML文書をプログラムから操作するための仕組みです。JavaScriptでDOMを操作することで、テキストの書き換えや要素の色の変更などが可能になります。</p>
+                    <p>下のデモでボタンをクリックすると、テキストが変化します。これがJavaScriptによるDOM操作の基本です。</p>
+                    
+                    <div class="interactive-demo">
+                        <h3>実行結果：</h3>
+                        <p id="demo-text" class="demo-output">ボタンを押してテキストを変更！</p>
+                        <button id="change-text-btn">テキスト変更</button>
+                    </div>
+                </div>
+                <img src="./images/DOMtree.png" alt="DOMツリーのイメージ画像" class="content-image">
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>このコードは、「ボタンがクリックされたら、特定のテキストを書き換える」という処理を実現しています。ポイントは以下の通りです。</p>
+                <ul>
+                    <li><strong>要素の取得:</strong> <code>document.getElementById()</code> を使って、操作したいHTML要素（この場合はテキストとボタン）をID名で探し出します。</li>
+                    <li><strong>イベント待機:</strong> <code>addEventListener('click', ...)</code> で、ボタンがクリックされるのを待ち構えます。</li>
+                    <li><strong>内容の変更:</strong> クリックされた瞬間に、取得しておいたテキスト要素の <code>textContent</code> プロパティに新しい文字列を代入し、表示を書き換えます。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- 1. 操作したいHTML要素をIDで取得し、変数に保存 ---
+// 'demo-text'というIDを持つp要素を取得
+const textElement = document.getElementById('demo-text');
+// 'change-text-btn'というIDを持つbutton要素を取得
+const changeButton = document.getElementById('change-text-btn');
+
+// --- 2. ボタンがクリックされた時の処理を定義 ---
+// changeButtonに対して、「クリック(click)」イベントが発生したら、中の処理を実行するよう設定
+changeButton.addEventListener('click', () => {
+  // textElementのテキスト内容(textContent)を新しい文字列に変更する
+  textElement.textContent = 'テキストが変わりました！';
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="interactive-style-demo">
+            <h2><i class="fa-solid fa-palette"></i> 【実践②】スタイルをリアルタイムで変更する</h2>
+            <p>JavaScriptを使えば、ユーザーの操作に応じてページの見た目（スタイル）を動的に変更することもできます。下のツールを操作して、テキストの見た目を変えてみましょう！</p>
+            
+            <div class="style-demo-container">
+                <div class="style-demo-controls">
+                    <div>
+                        <label for="text-input">表示するテキスト:</label>
+                        <input type="text" id="text-input" value="JavaScriptで操作中！">
+                    </div>
+                    <div>
+                        <label for="color-picker">文字色:</label>
+                        <input type="color" id="color-picker" value="#3498db">
+                    </div>
+                    <div>
+                        <label for="size-slider">文字サイズ: <span id="size-value">24</span>px</label>
+                        <input type="range" id="size-slider" min="12" max="48" value="24">
+                    </div>
+                </div>
+                <div class="style-demo-preview">
+                    <p id="style-preview-text">JavaScriptで操作中！</p>
+                </div>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>このデモでは、カラーピッカーの値が変わるたびに、プレビューテキストの文字色をリアルタイムで変更しています。</p>
+                <ul>
+                    <li><strong>イベントの種類:</strong> `input` イベントは、値が変更されるたびに発生します。`click` イベントと違い、ドラッグ中などにも連続して反応するのが特徴です。</li>
+                    <li><strong>スタイルの操作:</strong> <code>要素.style.プロパティ名</code> の形で、CSSのプロパティを直接変更できます。ここでは <code>previewText.style.color</code> で文字色を操作しています。</li>
+                    <li><strong>値の取得:</strong> <code>colorPicker.value</code> で、カラーピッカーで現在選択されている色の値（例: `#3498db`）を取得できます。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- 操作対象となるHTML要素をすべて取得 ---
+const colorPicker = document.getElementById('color-picker');
+const previewText = document.getElementById('style-preview-text');
+
+// --- カラーピッカーの値が変更(input)された時の処理 ---
+colorPicker.addEventListener('input', () => {
+  // previewTextのCSS(style)の文字色(color)プロパティを、
+  // カラーピッカーの現在の値(colorPicker.value)に変更する
+  previewText.style.color = colorPicker.value;
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="todo-list-demo">
+            <h2><i class="fa-solid fa-list-check"></i> 【実践③】要素の追加と削除（To-Doリスト）</h2>
+            <p>JavaScriptを使えば、HTMLに新しい要素を追加したり、既存の要素を削除したりすることも自由自在です。簡単なTo-Doリストを作成して、動的なページの構築を体験してみましょう。</p>
+            
+            <div class="interactive-demo">
+                <h3>To-Doリスト</h3>
+                <div class="todo-input-container">
+                    <input type="text" id="todo-input" placeholder="新しいタスクを入力">
+                    <button id="add-todo-btn">追加</button>
+                </div>
+                <ul id="todo-list">
+                </ul>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>このコードは、新しいHTML要素をJavaScriptで動的に作り出し、ページに追加する例です。</p>
+                <ul>
+                    <li><strong>要素の生成:</strong> <code>document.createElement('li')</code> は、新しい `<li>` タグをメモリ上に作成します。この時点ではまだページには表示されません。</li>
+                    <li><strong>内容の設定:</strong> 作成した要素の <code>textContent</code> に、入力されたテキストを設定します。</li>
+                    <li><strong>ページへの追加:</strong> <code>todoList.appendChild(listItem)</code> で、`<ul>` 要素（todoList）の末尾に、作成した `<li>` 要素（listItem）を追加します。ここで初めて画面に表示されます。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- 「追加」ボタンがクリックされた時の処理 ---
+addTodoBtn.addEventListener('click', () => {
+    // 1. 新しい<li>要素をプログラムで作成する
+    const listItem = document.createElement('li');
+
+    // 2. 作成した<li>要素に、入力されたテキストを設定する
+    listItem.textContent = '新しいタスク';
+    
+    // 3. <ul>要素(todoList)の子要素として、作成した<li>を追加する
+    todoList.appendChild(listItem);
+});</code></pre>
+            </div>
+        </section>
+        
+        <section id="api-fetch-demo">
+            <h2><i class="fa-solid fa-cloud-arrow-down"></i> 【実践④】APIを使ってデータを取得する</h2>
+            <p>JavaScriptの強力な機能の一つに、<strong>API (Application Programming Interface)</strong> を使って外部のサーバーからデータを取得する能力があります。これにより、天気予報やニュース、画像などを自分のウェブサイトに表示できます。</p>
+            <p>下のデモでは、入力したキーワードに関連する画像を、外部の画像サービスから取得して表示します。（※実際にはキーワードに応じたプレースホルダー画像を表示しています）</p>
+
+            <div class="interactive-demo">
+                <h3>画像取得デモ</h3>
+                <div class="api-input-container">
+                    <input type="text" id="api-input" placeholder="例: cat, dog, sky">
+                    <button id="fetch-image-btn">画像を取得</button>
+                </div>
+                <div id="image-result-container">
+                    <p>キーワードを入力してボタンを押してください。</p>
+                </div>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>このデモは、ユーザーが入力したキーワードを元に、外部サービスのURLを組み立て、画像を表示する仕組みです。</p>
+                <ul>
+                    <li><strong>要素の生成:</strong> To-Doリストと同様に、<code>document.createElement('img')</code> で新しい `<img>` 要素を作成します。</li>
+                    <li><strong>属性の設定:</strong> 画像を表示するには `src` 属性が必須です。<code>newImage.src = ...</code> のように、要素の属性に値を設定します。</li>
+                    <li><strong>URLの組み立て:</strong> テンプレートリテラル (<code>`...`</code>) を使い、固定のURLとユーザーが入力したキーワード (`keyword` 変数) を組み合わせて、動的に画像URLを生成しています。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- 「画像を取得」ボタンがクリックされた時の処理 ---
+fetchBtn.addEventListener('click', () => {
+    // 入力されたキーワードを取得
+    const keyword = apiInput.value;
+
+    // 1. 新しい<img>要素を作成
+    const newImage = document.createElement('img');
+    
+    // 2. 外部サービスのURLを画像のsrc属性に設定
+    //    キーワードを埋め込んで、画像URLを動的に生成する
+    newImage.src = `https://placehold.co/600x400?text=${keyword}`;
+
+    // 3. コンテナに作成した画像要素を追加して表示
+    imageContainer.appendChild(newImage);
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="canvas-demo">
+            <h2><i class="fa-solid fa-paintbrush"></i> 【実践⑤】Canvasでお絵かき体験</h2>
+            <p>JavaScriptは、<code>&lt;canvas&gt;</code>要素を使って図形や画像を自由に描画することもできます。ゲームやデータ可視化、画像エディタなど、高度なグラフィック表現に使われる技術です。</p>
+            <p>下のキャンバスの上でマウスをドラッグ、または指でなぞって自由にお絵かきしてみてください。</p>
+
+            <div class="interactive-demo">
+                <h3>お絵かきキャンバス</h3>
+                <div class="canvas-controls">
+                    <label for="pen-color">ペンの色: </label>
+                    <input type="color" id="pen-color" value="#e74c3c">
+                    <button id="clear-canvas-btn">全消し</button>
+                </div>
+                <canvas id="drawing-canvas"></canvas>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>Canvasでお絵かきするには、「描画コンテキスト」と呼ばれる操作ツールを取得し、マウスの動きに合わせて線を描く命令を出します。</p>
+                <ul>
+                    <li><strong>コンテキスト取得:</strong> <code>canvas.getContext('2d')</code> は、2Dグラフィックを描くための機能一式（ペンの色、太さ、描画命令など）が詰まったオブジェクトを返します。</li>
+                    <li><strong>イベント検知:</strong> <code>mousemove</code> イベントでマウスの座標を常に監視します。</li>
+                    <li><strong>描画の判定:</strong> <code>if (e.buttons === 1)</code> という条件で、「マウスの左ボタンが押されている間だけ」描画処理が実行されるようにしています。これにより、ドラッグ中のみ線が描かれます。</li>
+                    <li><strong>線の描画:</strong> <code>context.lineTo()</code> で現在のマウス座標までパス（見えない線）を伸ばし、<code>context.stroke()</code> でそのパスを実際に描画します。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- canvas要素と、描画のための「コンテキスト」を取得 ---
+const canvas = document.getElementById('drawing-canvas');
+const context = canvas.getContext('2d'); // 2D描画用のツールセットを取得
+
+// --- マウスが動いた(mousemove)時の処理 ---
+canvas.addEventListener('mousemove', (e) => {
+  // もしマウスの左ボタンが押されていたら (e.buttons === 1)
+  if (e.buttons === 1) {
+    // 1. 現在のマウス座標まで線を引くパスを追加
+    //    e.offsetX, e.offsetY はcanvas内でのX, Y座標
+    context.lineTo(e.offsetX, e.offsetY);
+    
+    // 2. パスに沿って実際に線を描画する
+    context.stroke();
+  }
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="validation-demo">
+            <h2><i class="fa-solid fa-circle-check"></i> 【実践⑥】フォームの入力チェック</h2>
+            <p>ユーザーがフォームに入力した内容が正しい形式か（メールアドレスの形式など）をチェックする機能は、多くのウェブサイトで不可欠です。これを<strong>バリデーション</strong>と呼びます。</p>
+            <div class="interactive-demo">
+                <h3>登録フォーム（デモ）</h3>
+                <form id="validation-form" novalidate>
+                    <div class="form-group">
+                        <label for="email-input">メールアドレス:</label>
+                        <input type="email" id="email-input" placeholder="test@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-input">パスワード:</label>
+                        <input type="password" id="password-input" placeholder="8文字以上で入力">
+                    </div>
+                    <button type="submit" id="submit-btn">登録</button>
+                </form>
+                <p id="validation-message" class="message-area"></p>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>フォームが送信される `submit` イベントを検知し、送信を一時停止して入力内容をチェックします。</p>
+                <ul>
+                    <li><strong>デフォルト動作の抑止:</strong> <code>e.preventDefault()</code> は非常に重要です。これを書かないと、チェック処理の有無にかかわらず、フォームが送信されてページがリロードしてしまいます。</li>
+                    <li><strong>値のチェック:</strong> <code>passwordInput.value.length</code> で、パスワード入力欄の文字列の長さを取得し、8文字未満かどうかを `if` 文で判定しています。</li>
+                    <li><strong>結果の表示:</strong> 条件に応じて、メッセージを表示する要素の <code>textContent</code> を書き換え、ユーザーに結果を伝えます。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- フォームが送信(submit)された時の処理 ---
+form.addEventListener('submit', (e) => {
+  // 1. フォーム送信時のページの再読み込みをキャンセルする
+  e.preventDefault(); 
+
+  // 2. パスワード入力欄の値(value)の長さ(length)が8未満の場合
+  if (passwordInput.value.length < 8) {
+    // エラーメッセージを表示
+    messageArea.textContent = 'パスワードは8文字以上です。';
+  } else {
+    // 成功メッセージを表示
+    messageArea.textContent = '登録成功！';
+  }
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="quiz-demo">
+            <h2><i class="fa-solid fa-circle-question"></i> 【実践⑦】簡単なクイズ機能</h2>
+            <p>ユーザーの選択肢に応じて正解・不正解を判定するクイズは、学習コンテンツやエンターテイメントサイトでよく使われる機能です。</p>
+            <div class="interactive-demo">
+                <h3>JavaScriptクイズ！</h3>
+                <p class="quiz-question">Q. JavaScriptの変数を宣言するキーワードでないものはどれ？</p>
+                <div id="quiz-options">
+                    <label><input type="radio" name="quiz" value="var"> var</label>
+                    <label><input type="radio" name="quiz" value="function"> function</label>
+                    <label><input type="radio" name="quiz" value="let"> let</label>
+                    <label><input type="radio" name="quiz" value="const"> const</label>
+                </div>
+                <button id="check-answer-btn">答え合わせ</button>
+                <p id="quiz-result" class="message-area"></p>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>複数のラジオボタンの中から、ユーザーが選択した一つを特定し、その値が正解かどうかを判定します。</p>
+                <ul>
+                    <li><strong>選択要素の特定:</strong> <code>document.querySelector()</code> は、CSSセレクタに一致する最初の要素を見つけます。<code>'input[name="quiz"]:checked'</code> というセレクタは、「name属性が'quiz'のinput要素のうち、チェックされているもの」という意味になり、選択されたラジオボタンを正確に捉えることができます。</li>
+                    <li><strong>値の比較:</strong> 取得したラジオボタンの <code>value</code> 属性（HTMLで設定したもの）が、正解の文字列（この場合は 'function'）と一致するかどうかを比較しています。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- 「答え合わせ」ボタンがクリックされた時の処理 ---
+checkBtn.addEventListener('click', () => {
+  // 1. チェックされているラジオボタンを取得する
+  //    CSSセレクタを使って「nameが'quiz'で、チェック(:checked)されているinput」を探す
+  const selected = document.querySelector('input[name="quiz"]:checked');
+  
+  // 2. もし選択された要素があり、その値(value)が 'function' なら
+  if (selected && selected.value === 'function') {
+    resultArea.textContent = '正解！';
+  } else {
+    resultArea.textContent = '不正解です。';
+  }
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="timer-demo">
+            <h2><i class="fa-solid fa-stopwatch-20"></i> 【実践⑧】カウントダウンタイマー</h2>
+            <p>指定した時間からカウントダウンするタイマーは、セール終了までの時間を表示したり、オンラインテストの制限時間を示したりするのに役立ちます。<code>setInterval</code>という関数が中心的な役割を果たします。</p>
+            <div class="interactive-demo">
+                <h3>カウントダウン</h3>
+                <div id="timer-display">00:10</div>
+                <div class="timer-controls">
+                    <input type="number" id="timer-input" min="1" value="10" placeholder="秒数を入力">
+                    <button id="start-timer-btn">スタート</button>
+                    <button id="reset-timer-btn">リセット</button>
+                </div>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>このコードは、<code>setInterval</code> を使って1秒ごとに処理を繰り返し実行し、タイマーを実現しています。</p>
+                <ul>
+                    <li><strong>繰り返し処理:</strong> <code>setInterval(処理内容, 間隔)</code> は、指定した間隔（ミリ秒単位）で処理内容を何度も実行します。ここでは1000ミリ秒（=1秒）ごとに設定しています。</li>
+                    <li><strong>時間の更新:</strong> 繰り返し処理の中で、残り時間を管理する変数 `timeLeft` を1ずつ減らし、表示を更新しています。</li>
+                    <li><strong>タイマーの停止:</strong> 残り時間が0になったら、<code>clearInterval(timer)</code> を呼び出して繰り返し処理を停止します。これをしないと、マイナスの値になっても無限に処理が続いてしまいます。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>let timeLeft = 10; // 残り時間を管理する変数
+
+// --- 1秒ごとに実行する処理をセット ---
+const timer = setInterval(() => {
+  // 1. 残り時間を1減らす
+  timeLeft--; 
+  // 2. 画面の表示を更新する
+  display.textContent = timeLeft;
+
+  // 3. もし残り時間が0以下になったら
+  if (timeLeft <= 0) {
+    // 繰り返し処理を停止する
+    clearInterval(timer); 
+    display.textContent = '終了！';
+  }
+}, 1000); // 1000ミリ秒 = 1秒間隔で実行</code></pre>
+            </div>
+        </section>
+
+        <section id="modal-demo">
+            <h2><i class="fa-solid fa-window-maximize"></i> 【実践⑨】モーダルウィンドウ</h2>
+            <p>モーダルウィンドウは、重要なメッセージの表示や、ユーザーに追加情報の入力を促す際に、ページの他の部分を一時的に操作不能にして表示するウィンドウです。</p>
+            <div class="interactive-demo">
+                <h3>モーダル表示デモ</h3>
+                <button id="open-modal-btn">詳細を見る</button>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>この機能は、JavaScriptで直接スタイルを変更するのではなく、CSSのクラスを付け外しすることで表示を切り替えています。これはモダンなWeb開発でよく使われる手法です。</p>
+                <ul>
+                    <li><strong>クラス操作:</strong> <code>element.classList.add('クラス名')</code> でクラスを追加し、<code>element.classList.remove('クラス名')</code> でクラスを削除します。</li>
+                    <li><strong>CSSとの連携:</strong> あらかじめCSS側で、<code>.is-visible</code> というクラスがついた時のスタイル（例: `display: block; opacity: 1;`）と、ついていない時のスタイル（例: `display: none; opacity: 0;`）を定義しておきます。</li>
+                    <li><strong>実装の分離:</strong> JavaScriptは「いつクラスを変えるか」だけを担当し、具体的な見た目はCSSが担当することで、コードの見通しが良くなります。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- 「詳細を見る」ボタンがクリックされた時の処理 ---
+openBtn.addEventListener('click', () => {
+  // オーバーレイとモーダル本体のクラスリストに 'is-visible' を追加
+  // (CSS側で .is-visible がつくと表示されるように設定されている)
+  overlay.classList.add('is-visible');
+  content.classList.add('is-visible');
+});
+
+// --- 「閉じる」ボタンがクリックされた時の処理 ---
+closeBtn.addEventListener('click', () => {
+  // 'is-visible' クラスを削除して非表示にする
+  overlay.classList.remove('is-visible');
+  content.classList.remove('is-visible');
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="char-counter-demo">
+            <h2><i class="fa-solid fa-file-lines"></i> 【実践⑩】文字数カウンター</h2>
+            <p>SNSへの投稿やお問い合わせフォームなどで、ユーザーが入力できる文字数を制限し、現在の文字数をリアルタイムで表示する機能です。</p>
+            <div class="interactive-demo">
+                <h3>コメント入力</h3>
+                <textarea id="comment-textarea" maxlength="140" placeholder="140文字以内で入力してください..."></textarea>
+                <div id="char-counter">0 / 140</div>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>テキストエリアへの `input` イベント（入力があるたびに発生）を監視し、現在の文字数を表示に反映させます。</p>
+                <ul>
+                    <li><strong>イベントの選択:</strong> `input` イベントを使うことで、キーボード入力だけでなく、コピー＆ペーストによる変更にも即座に反応できます。</li>
+                    <li><strong>文字数の取得:</strong> <code>textarea.value.length</code> で、テキストエリアに入力されている現在の文字列の長さを簡単に取得できます。</li>
+                    <li><strong>表示の更新:</strong> 取得した文字数と最大文字数を組み合わせた文字列を作成し、カウンター要素の <code>textContent</code> を書き換えています。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- テキストエリアに入力(input)があった時の処理 ---
+textarea.addEventListener('input', () => {
+  // 1. 現在の文字数を取得
+  const currentLength = textarea.value.length;
+  // (参考) HTMLのmaxlength属性から最大文字数を取得
+  const maxLength = textarea.maxLength;
+
+  // 2. 文字数表示用の要素のテキストを更新
+  //    例: 「75 / 140」のような文字列を作成して設定
+  counter.textContent = `${currentLength} / ${maxLength}`;
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="image-gallery-demo">
+            <h2><i class="fa-solid fa-images"></i> 【実践⑪】画像ギャラリー</h2>
+            <p>クリックしたサムネイル画像をメインの表示エリアに大きく表示する、シンプルな画像ギャラリーです。イベントリスナーを使って、ユーザーの操作（クリック）をきっかけに、要素の属性（この場合は画像の<code>src</code>属性）を書き換えています。</p>
+            <div class="interactive-demo">
+                <div class="gallery-container">
+                    <div class="main-image-container">
+                        <img src="./images/image1.png" alt="メイン画像" id="main-gallery-image">
+                    </div>
+                    <div class="thumbnail-container" id="thumbnail-container">
+                        <img src="./images/image1.png" alt="サムネイル 1" class="thumbnail-img active">
+                        <img src="./images/image2.png" alt="サムネイル 2" class="thumbnail-img">
+                        <img src="./images/image3.png" alt="サムネイル 3" class="thumbnail-img">
+                        <img src="./images/image4.png" alt="サムネイル 4" class="thumbnail-img">
+                    </div>
+                </div>
+            </div>
+            <h3>デモのコード解説</h3>
+            <div class="explanation-box">
+                <p>複数のサムネイル画像それぞれにクリックイベントを設定し、クリックされたものに応じてメイン画像の内容を切り替えます。</p>
+                <ul>
+                    <li><strong>複数要素へのイベント設定:</strong> <code>querySelectorAll</code> で全てのサムネイルを取得し、<code>forEach</code> ループを使って、一つ一つのサムネイルにイベントリスナーを設定しています。</li>
+                    <li><strong>属性の書き換え:</strong> 画像の表示元は `src` 属性で決まります。クリックされたサムネイルの `src` (`thumbnail.src`) を、メイン画像の `src` (`mainImage.src`) に代入することで、表示を切り替えています。</li>
+                    <li><strong>アクティブ表示の管理:</strong> どのサムネイルが選択されているか視覚的に示すため、`active` クラスを付け替えています。まず全サムネイルからクラスを一旦削除し、その後クリックされたものにだけ再度追加するのが確実な方法です。</li>
+                </ul>
+            </div>
+            <div class="code-container">
+                <pre><code>// --- すべてのサムネイル画像を取得 (NodeListという配列のような形式で返される) ---
+const thumbnails = document.querySelectorAll('.thumbnail-img');
+
+// --- 取得した各サムネイル(thumbnail)に対して、同じ処理を設定 ---
+thumbnails.forEach(thumbnail => {
+  // 各サムネイルにクリックイベントを設定
+  thumbnail.addEventListener('click', () => {
+    // 1. クリックされたサムネイルの画像パス(src)を、メイン画像のパスに設定
+    mainImage.src = thumbnail.src;
+
+    // 2. (見た目のため) 現在アクティブなサムネイルから 'active' クラスを削除
+    document.querySelector('.thumbnail-img.active').classList.remove('active');
+    
+    // 3. クリックされたサムネイル自身に 'active' クラスを追加
+    thumbnail.classList.add('active');
+  });
+});</code></pre>
+            </div>
+        </section>
+
+        <section id="next-steps">
+            <h2><i class="fa-solid fa-graduation-cap"></i> さらに学ぶには</h2>
+            <p>JavaScriptの世界は広大です。以下のリソースを活用して、さらに学習を深めていきましょう。</p>
+            <ol>
+                <li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">MDN Web Docs (Mozilla)</a> - 最も信頼性の高い公式リファレンスです。</li>
+                <li><a href="https://ja.javascript.info/" target="_blank" rel="noopener noreferrer">The Modern JavaScript Tutorial</a> - 基礎から応用まで体系的に学べるサイトです。</li>
+                <li>フレームワークやライブラリ（React, Vue.jsなど）の学習に進むと、より複雑なWebアプリケーションが作れるようになります。</li>
+            </ol>
+        </section>
+    </main>
+
+    <!-- モーダルウィンドウ用のHTML -->
+    <div id="modal-overlay" class="modal-overlay"></div>
+    <div id="modal-content" class="modal-content">
+        <h3>詳細情報</h3>
+        <p>これはモーダルウィンドウのサンプルです。JavaScriptを使って表示・非表示を制御しています。オーバーレイ部分か閉じるボタンをクリックすると、このウィンドウは閉じられます。</p>
+        <button id="close-modal-btn" class="modal-close-btn">&times;</button>
+    </div>
+
+    <footer>
+        <p>本コンテンツの作成時間：約7時間</p>
+        <p>&copy; 2025 インタラクティブなJavaScript入門. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+
+</body>
+</html>
