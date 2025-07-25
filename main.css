@@ -25,13 +25,13 @@ body {
     padding: 0;
     width: 100%;
     overflow-x: hidden; /* 横スクロールの防止 */
+    overflow-wrap: break-word; /* 長い単語やURLがはみ出ないように自動で改行 */
 }
 
 /* メニューが開いているときに背景をスクロールさせない */
 body.is-menu-open {
     overflow: hidden;
 }
-
 
 main {
     max-width: 900px;
@@ -59,7 +59,6 @@ h2 {
     align-items: center;
     justify-content: center;
     text-align: center;
-    white-space: nowrap;
 }
 
 h2 .fa-solid, h2 .fa-brands {
@@ -115,9 +114,10 @@ header {
 }
 
 .title-logo {
-    font-size: 1.8em;
+    font-size: clamp(1.4rem, 1rem + 2.5vw, 1.8rem); /* 画面幅に応じて文字サイズを流動的に調整 */
     color: white;
     text-decoration: none;
+    white-space: nowrap; /* タイトルが改行されないようにする */
 }
 
 /* ハンバーガーメニューボタン */
@@ -214,7 +214,7 @@ header {
 .text-content { flex: 1; }
 .content-image {
     flex: 1;
-    max-width: 48%;
+    max-width: 48%; /* ★変更点: 元のスタイルに戻しました */
     height: auto;
     border-radius: 10px;
     object-fit: cover;
@@ -233,8 +233,10 @@ header {
     color: #f1f1f1;
     padding: 20px;
     border-radius: 8px;
-    overflow-x: auto;
     font-size: 0.95em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-x: auto;
 }
 
 button {
